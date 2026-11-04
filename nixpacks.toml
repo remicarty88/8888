@@ -1,0 +1,13 @@
+# Railway / Nixpacks: Node.js для сайта + Python для сервиса озвучки (edge-tts).
+# Nixpacks сам определяет оба стека и ставит зависимости:
+#   npm install  и  pip install -r requirements.txt
+# .env сервер читает сам (см. server.js), на Railway переменные приходят из Variables.
+
+[variables]
+# Фиксируем Node 22. Nixpacks сам добавляет к стартовой команде флаг
+# --env-file-if-exists=.env, если видит файл .env, а этот флаг есть только в
+# Node 22.9+. На старом Node получалось "bad option: --env-file-if-exists=.env".
+NIXPACKS_NODE_VERSION = "22"
+
+[start]
+cmd = "node server.js --tts"
